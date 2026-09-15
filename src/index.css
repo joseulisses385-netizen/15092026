@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #190224;
+    color: #ffffff;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6, .font-fun {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* Paleta de Cores Oficial Vibrante & Animada (Mascotes & Logotipo Doidas e Meias) */
+:root {
+  --color-pink-neon: #ff007f;
+  --color-magenta-bright: #ff1493;
+  --color-yellow-electric: #ffe600;
+  --color-cyan-glow: #00f2fe;
+  --color-cyan-electric: #00c6ff;
+  --color-purple-vivid: #a855f7;
+  --color-purple-deep: #190224;
+  --color-lime-pop: #10b981;
+}
+
+/* Efeitos de Brilho e Gradientes Eletrizantes */
+.text-gradient-vibrant {
+  background: linear-gradient(135deg, #ff007f 0%, #ffe600 50%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-pink-yellow {
+  background: linear-gradient(135deg, #ff007f 0%, #ff8c00 50%, #ffe600 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan-purple {
+  background: linear-gradient(135deg, #00f2fe 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Brilhos Neon (Glows) */
+.glow-pink {
+  box-shadow: 0 0 25px rgba(255, 0, 127, 0.4), 0 0 50px rgba(255, 0, 127, 0.15);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.4), 0 0 50px rgba(0, 242, 254, 0.15);
+}
+
+.glow-yellow {
+  box-shadow: 0 0 25px rgba(255, 230, 0, 0.4), 0 0 50px rgba(255, 230, 0, 0.15);
+}
+
+.glow-multi {
+  box-shadow: 0 0 30px rgba(255, 0, 127, 0.3), 0 0 60px rgba(0, 242, 254, 0.2);
+}
+
+.border-glow-pink {
+  border-color: rgba(255, 0, 127, 0.6);
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.25);
+}
+
+.border-glow-cyan {
+  border-color: rgba(0, 242, 254, 0.6);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+}
+
+/* Animações e Pulsações Sutis */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.04); }
+}
+
+.animate-float {
+  animation: float-gentle 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; } .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

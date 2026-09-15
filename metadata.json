@@ -1,0 +1,8 @@
+{
+  "name": "Doidas e Meias",
+  "description": "As meias mais doidinhas do Brasil! Catálogo completo de meias autênticas e camisetas com estoque integrado, WhatsApp e TikTok Shop.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

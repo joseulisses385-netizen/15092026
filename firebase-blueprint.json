@@ -1,0 +1,57 @@
+{
+  "entities": {
+    "Customer": {
+      "title": "Customer",
+      "description": "A customer who registers on the store.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 200 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "email": { "type": "string", "maxLength": 200 },
+        "cpf": { "type": "string", "maxLength": 50 },
+        "address": { "type": "string", "maxLength": 300 },
+        "addressNumber": { "type": "string", "maxLength": 50 },
+        "complement": { "type": "string", "maxLength": 100 },
+        "neighborhood": { "type": "string", "maxLength": 100 },
+        "city": { "type": "string", "maxLength": 100 },
+        "cep": { "type": "string", "maxLength": 20 },
+        "lgpdConsent": { "type": "boolean" },
+        "lgpdConsentDate": { "type": "string", "maxLength": 50 },
+        "emailMarketingConsent": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "name", "phone", "lgpdConsent", "lgpdConsentDate", "createdAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "An order placed by a customer.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "orderNumber": { "type": "string", "maxLength": 50 },
+        "customerName": { "type": "string", "maxLength": 200 },
+        "customerPhone": { "type": "string", "maxLength": 50 },
+        "deliveryAddress": { "type": "string", "maxLength": 500 },
+        "paymentMethod": { "type": "string", "maxLength": 50 },
+        "subtotal": { "type": "number" },
+        "deliveryFee": { "type": "number" },
+        "total": { "type": "number" },
+        "status": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "orderNumber", "customerName", "customerPhone", "deliveryAddress", "paymentMethod", "total", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "customers/{customerId}": {
+      "schema": { "$ref": "#/entities/Customer" },
+      "description": "Store all registered customers."
+    },
+    "orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Store all placed orders."
+    }
+  }
+}

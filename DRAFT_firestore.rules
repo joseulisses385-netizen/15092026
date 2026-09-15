@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    
+    // Customers
+    function isValidCustomer(data) {
+      return data.keys().hasAll(['id', 'name', 'phone', 'lgpdConsent', 'lgpdConsentDate', 'createdAt'])
+        && data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 200
+        && data.phone is string && data.phone.size() <= 50
+        && data.lgpdConsent is bool
+        && data.lgpdConsentDate is string && data.lgpdConsentDate.size() <= 50
+        && data.createdAt is string && data.createdAt.size() <= 50
+        && data.get('email', '') is string && data.get('email', '').size() <= 200
+        && data.get('cpf', '') is string && data.get('cpf', '').size() <= 50
+        && data.get('address', '') is string && data.get('address', '').size() <= 300
+        && data.get('addressNumber', '') is string && data.get('addressNumber', '').size() <= 50
+        && data.get('complement', '') is string && data.get('complement', '').size() <= 100
+        && data.get('neighborhood', '') is string && data.get('neighborhood', '').size() <= 100
+        && data.get('city', '') is string && data.get('city', '').size() <= 100
+        && data.get('cep', '') is string && data.get('cep', '').size() <= 20;
+    }
+    
+    match /customers/{customerId} {
+      allow create: if isValidId(customerId) && isValidCustomer(incoming());
+      // Only admins or open read? To make the admin panel work without Firebase Auth, we temporarily allow read, 
+      // but in a production app we'd link this to Firebase Auth admin claims.
+      // Since the prompt uses a custom password backend, we'll allow read for now.
+      allow read, update, delete: if true;
+    }
+    
+    // Orders
+    function isValidOrder(data) {
+      return data.keys().hasAll(['id', 'orderNumber', 'customerName', 'customerPhone', 'deliveryAddress', 'paymentMethod', 'total', 'status', 'createdAt'])
+        && data.id is string && data.id.size() <= 128
+        && data.orderNumber is string && data.orderNumber.size() <= 50
+        && data.customerName is string && data.customerName.size() <= 200
+        && data.customerPhone is string && data.customerPhone.size() <= 50
+        && data.deliveryAddress is string && data.deliveryAddress.size() <= 500
+        && data.paymentMethod is string && data.paymentMethod.size() <= 50
+        && data.total is number
+        && data.status is string && data.status.size() <= 50
+        && data.createdAt is string && data.createdAt.size() <= 50;
+    }
+    
+    match /orders/{orderId} {
+      allow create: if isValidId(orderId) && isValidOrder(incoming());
+      allow read, update, delete: if true; 
+    }
+    
+    // Allow other collections to be read/write for the admin dashboard (products, settings, etc.)
+    match /settings/{docId} { allow read, write: if true; }
+    match /products/{docId} { allow read, write: if true; }
+    match /suppliers/{docId} { allow read, write: if true; }
+    match /manufacturers/{docId} { allow read, write: if true; }
+  }
+}
